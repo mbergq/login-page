@@ -1,12 +1,11 @@
-import { useState } from "react";
+import { AppLayout } from "./styled-components/AppLayout";
+import Login from "./components/Authorize";
 
 function App() {
-  const point: number = 32;
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      <p className="underline">{point}</p>
-    </>
+    <AppLayout>
+      <Login />
+    </AppLayout>
   );
 }
 
