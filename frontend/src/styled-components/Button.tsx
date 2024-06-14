@@ -12,9 +12,10 @@ export const Button = styled.button<Props>`
   font-weight: 600;
   margin: 0 10px;
   width: 200px;
+  height: fit-content;
   padding: 10px 0;
   box-shadow: 0 0 20px rgba(104, 85, 224, 0.2);
-  transition: 0.2s;
+  transition: 0.4s;
   color: ${(props) => props.$inputColor};
   background-color: ${(props) => (props.$bgColor ? "#6855E0" : "white")};
   &:hover {
