@@ -1,6 +1,6 @@
 import { AuthWrapper } from "../styled-components/AuthWrapper.tsx";
 import { Button } from "../styled-components/Button.tsx";
-import { Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Authorize() {
   return (
