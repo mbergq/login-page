@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Formik, Field, Form, FormikHelpers } from "formik";
+import { useParams } from "react-router-dom";
 
 interface Values {
   username: string;
@@ -7,9 +8,11 @@ interface Values {
 }
 
 function Register() {
+  const { id } = useParams();
   return (
     <div>
-      <h2>Register</h2>
+      <h2>{id?.charAt(0).toUpperCase() + id!.slice(1)}</h2>
+
       <Formik
         initialValues={{
           username: "",
@@ -20,11 +23,12 @@ function Register() {
           { setSubmitting }: FormikHelpers<Values>
         ) => {
           axios
-            .post("http://localhost:3000/auth/register", {
+            .post(`http://localhost:3000/auth/${id}`, {
               username: values.username,
               password: values.password,
             })
             .then(function (response) {
+              //if params = register / login, response.data.token
               console.log(response.data);
             })
             .catch(function (error) {

@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 function Authorize() {
   return (
     <AuthWrapper>
-      <Button $inputColor="#6855E0" $bgColor={false}>
-        Login
-      </Button>
+      <Link to="/auth/login">
+        <Button $inputColor="#6855E0" $bgColor={false}>
+          Login
+        </Button>
+      </Link>
       <Link to="/auth/register">
         <Button $inputColor="white" $bgColor={true}>
           Register

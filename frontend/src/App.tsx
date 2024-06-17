@@ -11,20 +11,20 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
-          path="/auth/register"
+          path="/auth"
+          element={
+            <AppLayout>
+              <Authorize />
+            </AppLayout>
+          }
+        />
+        <Route
+          path="/auth/:id"
           element={
             <AppLayout>
               <AuthWrapper>
                 <Register />
               </AuthWrapper>
-            </AppLayout>
-          }
-        />
-        <Route
-          path="/auth"
-          element={
-            <AppLayout>
-              <Authorize />
             </AppLayout>
           }
         />
