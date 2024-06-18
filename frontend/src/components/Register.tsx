@@ -1,11 +1,31 @@
 import axios from "axios";
-import { Formik, Field, Form, FormikHelpers } from "formik";
+import { Formik, Form, FormikHelpers, useField } from "formik";
 import { useParams } from "react-router-dom";
+import * as Yup from "yup";
 
 interface Values {
   username: string;
   password: string;
 }
+
+const TextInput = ({
+  label,
+  ...props
+}: {
+  [x: string]: string;
+  name: string;
+}) => {
+  const [field, meta] = useField(props);
+  return (
+    <>
+      <label htmlFor={props.id || props.name}>{label}</label>
+      <input className="text-input" {...field} {...props} />
+      {meta.touched && meta.error ? (
+        <div className="error">{meta.error}</div>
+      ) : null}
+    </>
+  );
+};
 
 function Register() {
   const { id } = useParams();
@@ -18,6 +38,14 @@ function Register() {
           username: "",
           password: "",
         }}
+        validationSchema={Yup.object({
+          username: Yup.string()
+            .max(15, "Must be 15 characters or less")
+            .required("Required"),
+          password: Yup.string()
+            .min(10, "Must be 10 characters or more")
+            .required("Required"),
+        })}
         onSubmit={(
           values: Values,
           { setSubmitting }: FormikHelpers<Values>
@@ -42,12 +70,18 @@ function Register() {
         }}
       >
         <Form>
-          <label htmlFor="username">Username</label>
-          <Field id="username" name="username" placeholder="Username.." />
-
-          <label htmlFor="password">Password</label>
-          <Field id="password" name="password" placeholder="Password.." />
-
+          <TextInput
+            label="Username"
+            name="username"
+            type="text"
+            placeholder="Username"
+          />
+          <TextInput
+            label="Password"
+            name="password"
+            type="text"
+            placeholder="Password"
+          />
           <button type="submit">
             {id?.charAt(0).toUpperCase() + id!.slice(1)}
           </button>
