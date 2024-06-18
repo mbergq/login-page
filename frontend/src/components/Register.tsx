@@ -28,8 +28,12 @@ function Register() {
               password: values.password,
             })
             .then(function (response) {
-              //if params = register / login, response.data.token
-              console.log(response.data);
+              if (response.data.token !== undefined) {
+                const token = response.data.token;
+                console.log(token);
+              } else {
+                console.log("Registered successfully");
+              }
             })
             .catch(function (error) {
               console.log(error);
@@ -44,7 +48,9 @@ function Register() {
           <label htmlFor="password">Password</label>
           <Field id="password" name="password" placeholder="Password.." />
 
-          <button type="submit">Register</button>
+          <button type="submit">
+            {id?.charAt(0).toUpperCase() + id!.slice(1)}
+          </button>
         </Form>
       </Formik>
     </div>
