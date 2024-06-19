@@ -2,6 +2,8 @@ import axios from "axios";
 import { Formik, Form, FormikHelpers, useField } from "formik";
 import { useParams } from "react-router-dom";
 import * as Yup from "yup";
+import YupPassword from "yup-password";
+YupPassword(Yup);
 
 interface Values {
   username: string;
@@ -42,9 +44,7 @@ function Register() {
           username: Yup.string()
             .max(15, "Must be 15 characters or less")
             .required("Required"),
-          password: Yup.string()
-            .min(10, "Must be 10 characters or more")
-            .required("Required"),
+          password: Yup.string().password().min(10),
         })}
         onSubmit={(
           values: Values,
