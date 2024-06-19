@@ -1,6 +1,6 @@
 import Home from "./components/Home";
 import Authorize from "./components/Authorize";
-import Register from "./components/Register";
+import Sign from "./components/Sign";
 import { AppLayout } from "./styled-components/AppLayout";
 import { AuthWrapper } from "./styled-components/AuthWrapper";
 import { Routes, Route } from "react-router-dom";
@@ -23,7 +23,7 @@ function App() {
           element={
             <AppLayout>
               <AuthWrapper>
-                <Register />
+                <Sign />
               </AuthWrapper>
             </AppLayout>
           }

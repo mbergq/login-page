@@ -29,7 +29,7 @@ const TextInput = ({
   );
 };
 
-function Register() {
+function Sign() {
   const { id } = useParams();
   return (
     <div>
@@ -91,4 +91,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Sign;
