@@ -6,6 +6,9 @@ import { AuthWrapper } from "./styled-components/AuthWrapper";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
+  const handleSubmit = (data: string) => {
+    console.log("Token: " + data);
+  };
   return (
     <>
       <Routes>
@@ -23,7 +26,7 @@ function App() {
           element={
             <AppLayout>
               <AuthWrapper>
-                <Sign />
+                <Sign onSubmit={handleSubmit} />
               </AuthWrapper>
             </AppLayout>
           }

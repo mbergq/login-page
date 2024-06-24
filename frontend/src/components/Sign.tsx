@@ -10,6 +10,11 @@ interface Values {
   password: string;
 }
 
+interface TokenProp {
+  token?: string;
+  onSubmit: (token: string) => void;
+}
+
 const TextInput = ({
   label,
   ...props
@@ -29,8 +34,12 @@ const TextInput = ({
   );
 };
 
-function Sign() {
+function Sign(props: TokenProp) {
   const { id } = useParams();
+  const { onSubmit } = props;
+  const handleOnSubmit = (token: string) => {
+    onSubmit(token);
+  };
   return (
     <div>
       <h2>{id?.charAt(0).toUpperCase() + id!.slice(1)}</h2>
@@ -56,9 +65,12 @@ function Sign() {
               password: values.password,
             })
             .then(function (response) {
+              //login function returns a token as response
               if (response.data.token !== undefined) {
                 const token = response.data.token;
                 console.log(token);
+                handleOnSubmit(token);
+                //registering does not return a response
               } else {
                 console.log("Registered successfully");
               }
@@ -82,7 +94,12 @@ function Sign() {
             type="text"
             placeholder="Password"
           />
-          <button type="submit">
+          <button
+            type="submit"
+            // onClick={() => {
+            //   handleOnSubmit(token);
+            // }}
+          >
             {id?.charAt(0).toUpperCase() + id!.slice(1)}
           </button>
         </Form>
