@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Formik, Form, FormikHelpers, useField } from "formik";
-import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
 YupPassword(Yup);
@@ -35,14 +36,21 @@ const TextInput = ({
 };
 
 function Sign(props: TokenProp) {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { onSubmit } = props;
   const handleOnSubmit = (token: string) => {
     onSubmit(token);
   };
+  //take parameter value of login / register and set first letter to uppercase
+  const urlParamValue = id?.charAt(0).toUpperCase() + id!.slice(1);
+
+  //login handlers
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <div>
-      <h2>{id?.charAt(0).toUpperCase() + id!.slice(1)}</h2>
+      <h2>{urlParamValue}</h2>
 
       <Formik
         initialValues={{
@@ -65,14 +73,14 @@ function Sign(props: TokenProp) {
               password: values.password,
             })
             .then(function (response) {
-              //login function returns a token as response
               if (response.data.token !== undefined) {
                 const token = response.data.token;
-                console.log(token);
+                setIsLoggedIn(true);
+                navigate("/protected/dashboard", { replace: true });
+                console.log("Logged in successfully!");
                 handleOnSubmit(token);
-                //registering does not return a response
               } else {
-                console.log("Registered successfully");
+                console.log("Registered successfully!");
               }
             })
             .catch(function (error) {
@@ -94,14 +102,7 @@ function Sign(props: TokenProp) {
             type="text"
             placeholder="Password"
           />
-          <button
-            type="submit"
-            // onClick={() => {
-            //   handleOnSubmit(token);
-            // }}
-          >
-            {id?.charAt(0).toUpperCase() + id!.slice(1)}
-          </button>
+          <button type="submit">{urlParamValue}</button>
         </Form>
       </Formik>
     </div>
