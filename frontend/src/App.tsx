@@ -5,11 +5,12 @@ import Dashboard from "./components/Dashboard";
 import { AppLayout } from "./styled-components/AppLayout";
 import { AuthWrapper } from "./styled-components/AuthWrapper";
 import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
 
 function App() {
-  let token: string | undefined = undefined;
+  const [token, setToken] = useState<string | undefined>(undefined);
   const handleSubmit = (data: string) => {
-    token = data;
+    setToken(data);
     console.log("Token: " + data);
   };
   return (
