@@ -7,7 +7,9 @@ import { AuthWrapper } from "./styled-components/AuthWrapper";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
+  let token: string | undefined = undefined;
   const handleSubmit = (data: string) => {
+    token = data;
     console.log("Token: " + data);
   };
   return (
@@ -36,7 +38,7 @@ function App() {
           path="/protected/dashboard"
           element={
             <AppLayout>
-              <Dashboard />
+              <Dashboard webtoken={token} />
             </AppLayout>
           }
         />
