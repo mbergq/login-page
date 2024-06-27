@@ -47,7 +47,18 @@ function Sign(props: TokenProp) {
 
   //login handlers
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const oneHour = 3600000;
+  function terminateToken() {
+    setTimeout(() => {
+      if (isLoggedIn === true) {
+        setIsLoggedIn(false);
+      }
+      navigate("/auth/login", { replace: true });
+      console.log(
+        "Your token has expired.. To generate a new token please log back in"
+      );
+    }, oneHour);
+  }
   return (
     <div>
       <h2>{urlParamValue}</h2>
@@ -79,6 +90,7 @@ function Sign(props: TokenProp) {
                 navigate("/protected/dashboard", { replace: true });
                 console.log("Logged in successfully!");
                 handleOnSubmit(token);
+                terminateToken();
               } else {
                 console.log("Registered successfully!");
               }
