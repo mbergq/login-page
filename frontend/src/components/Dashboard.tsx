@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 interface Token {
@@ -7,20 +7,30 @@ interface Token {
 
 function Dashboard(props: Token) {
   const { webtoken } = props;
-  console.log(webtoken);
+  const [token, setToken] = useState(webtoken);
+
   useEffect(() => {
+    if (token) {
+      localStorage.setItem("token", JSON.stringify(token));
+    }
+  }, [token]);
+
+  useEffect(() => {
+    const localToken = JSON.parse(localStorage.getItem("token")!);
+    if (localToken) {
+      setToken(localToken);
+    }
     axios
       .get("http://localhost:3000/data", {
         headers: {
-          Authorization: webtoken,
+          Authorization: localToken,
         },
       })
       .then((response) => console.log(response.data));
-  }, [webtoken]);
+  }, []);
   return (
     <>
       <h1>Dashboard</h1>
-      <p>{webtoken}</p>
     </>
   );
 }
