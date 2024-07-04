@@ -1,4 +1,5 @@
 import Home from "./components/Home";
+import Navigation from "./components/Navigation";
 import Authorize from "./components/Authorize";
 import Sign from "./components/Sign";
 import Dashboard from "./components/Dashboard";
@@ -16,23 +17,39 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/home"
+          element={
+            <>
+              <Navigation />
+              <AppLayout>
+                <Home />
+              </AppLayout>
+            </>
+          }
+        />
         <Route
           path="/auth"
           element={
-            <AppLayout>
-              <Authorize />
-            </AppLayout>
+            <>
+              <Navigation />
+              <AppLayout>
+                <Authorize />
+              </AppLayout>
+            </>
           }
         />
         <Route
           path="/auth/:id"
           element={
-            <AppLayout>
-              <AuthWrapper>
-                <Sign onSubmit={handleSubmit} />
-              </AuthWrapper>
-            </AppLayout>
+            <>
+              <Navigation />
+              <AppLayout>
+                <AuthWrapper>
+                  <Sign onSubmit={handleSubmit} />
+                </AuthWrapper>
+              </AppLayout>
+            </>
           }
         />
         <Route
