@@ -11,9 +11,10 @@ interface Values {
   password: string;
 }
 
-interface TokenProp {
+interface Props {
   token?: string;
-  onSubmit: (token: string) => void;
+  isLoggedIn?: boolean;
+  onSubmit: (token: string, isLoggedIn: boolean) => void;
 }
 
 const TextInput = ({
@@ -35,12 +36,12 @@ const TextInput = ({
   );
 };
 
-function Sign(props: TokenProp) {
+function Sign(props: Props) {
   const navigate = useNavigate();
   const { id } = useParams();
   const { onSubmit } = props;
-  const handleOnSubmit = (token: string) => {
-    onSubmit(token);
+  const handleOnSubmit = (token: string, isLoggedIn: boolean) => {
+    onSubmit(token, isLoggedIn);
   };
   //take parameter value of login / register and set first letter to uppercase
   const urlParamValue = id?.charAt(0).toUpperCase() + id!.slice(1);
@@ -89,7 +90,7 @@ function Sign(props: TokenProp) {
                 setIsLoggedIn(true);
                 navigate("/protected/dashboard", { replace: true });
                 console.log("Logged in successfully!");
-                handleOnSubmit(token);
+                handleOnSubmit(token, true);
                 terminateToken();
               } else {
                 console.log("Registered successfully!");

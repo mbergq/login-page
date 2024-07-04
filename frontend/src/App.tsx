@@ -10,9 +10,12 @@ import { useState } from "react";
 
 function App() {
   const [token, setToken] = useState<string | undefined>(undefined);
-  const handleSubmit = (data: string) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const handleSubmit = (data: string, isLoggedIn: boolean) => {
     setToken(data);
+    setIsLoggedIn(isLoggedIn);
     console.log("Token: " + data);
+    console.log("Isloggedin?: " + isLoggedIn);
   };
   return (
     <>
