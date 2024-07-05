@@ -6,17 +6,34 @@ import Dashboard from "./components/Dashboard";
 import { AppLayout } from "./styled-components/AppLayout";
 import { AuthWrapper } from "./styled-components/AuthWrapper";
 import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [token, setToken] = useState<string | undefined>(undefined);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<null | boolean>(null);
+
   const handleSubmit = (data: string, isLoggedIn: boolean) => {
     setToken(data);
     setIsLoggedIn(isLoggedIn);
     console.log("Token: " + data);
     console.log("Isloggedin?: " + isLoggedIn);
   };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      localStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
+    }
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    const loggedIn = JSON.parse(localStorage.getItem("isLoggedIn")!);
+    if (loggedIn) {
+      setIsLoggedIn(loggedIn);
+      console.log(loggedIn);
+      console.log(isLoggedIn);
+    }
+  }, [isLoggedIn]);
+
   return (
     <>
       <Routes>

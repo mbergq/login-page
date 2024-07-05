@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-interface Token {
+interface Props {
   webtoken?: string;
 }
 
@@ -12,7 +12,7 @@ interface Data {
   records: string[];
 }
 
-function Dashboard(props: Token) {
+function Dashboard(props: Props) {
   const { webtoken } = props;
   const [token, setToken] = useState(webtoken);
   const [data, setData] = useState<Data[]>([]);
