@@ -45,21 +45,8 @@ function Sign(props: Props) {
   };
   //take parameter value of login / register and set first letter to uppercase
   const urlParamValue = id?.charAt(0).toUpperCase() + id!.slice(1);
-
-  //login handlers
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const oneHour = 3600000;
-  function terminateToken() {
-    setTimeout(() => {
-      if (isLoggedIn === true) {
-        setIsLoggedIn(false);
-      }
-      navigate("/auth/login", { replace: true });
-      console.log(
-        "Your token has expired.. To generate a new token please log back in"
-      );
-    }, oneHour);
-  }
+
   return (
     <div>
       <h2>{urlParamValue}</h2>
@@ -91,7 +78,16 @@ function Sign(props: Props) {
                 navigate("/protected/dashboard", { replace: true });
                 console.log("Logged in successfully!");
                 handleOnSubmit(token, true);
-                terminateToken();
+
+                setTimeout(() => {
+                  setIsLoggedIn(false);
+                  localStorage.setItem(
+                    "isLoggedIn",
+                    JSON.stringify(isLoggedIn)
+                  );
+                  handleOnSubmit(token, false);
+                  console.log("Token has expired");
+                }, 3600000);
               } else {
                 console.log("Registered successfully!");
               }
