@@ -1,15 +1,27 @@
 import { Link } from "react-router-dom";
 import { NavigationWrapper } from "../styled-components/NavigationWrapper";
 
-function Navigation() {
+interface Props {
+  isLoggedIn: boolean | null;
+}
+
+function Navigation(props: Props) {
+  const { isLoggedIn } = props;
+
   return (
     <NavigationWrapper>
       <Link to="/home">
         <button>Home</button>
       </Link>
-      <Link to="/auth" style={{ marginRight: "auto" }}>
-        <button>My dashboard</button>
-      </Link>
+      {isLoggedIn === true ? (
+        <Link to="/protected/dashboard" style={{ marginRight: "auto" }}>
+          <button>My dashboard</button>
+        </Link>
+      ) : (
+        <Link to="/auth/login" style={{ marginRight: "auto" }}>
+          <button>My dashboard</button>
+        </Link>
+      )}
       <Link to="/auth/register">
         <button>Register</button>
       </Link>

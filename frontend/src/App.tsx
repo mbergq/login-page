@@ -41,7 +41,7 @@ function App() {
           path="/home"
           element={
             <>
-              <Navigation />
+              <Navigation isLoggedIn={isLoggedIn} />
               <AppLayout>
                 <Home />
               </AppLayout>
@@ -52,7 +52,7 @@ function App() {
           path="/auth"
           element={
             <>
-              <Navigation />
+              <Navigation isLoggedIn={isLoggedIn} />
               <AppLayout>
                 <Authorize />
               </AppLayout>
@@ -63,7 +63,7 @@ function App() {
           path="/auth/:id"
           element={
             <>
-              <Navigation />
+              <Navigation isLoggedIn={isLoggedIn} />
               <AppLayout>
                 <AuthWrapper>
                   <Sign onSubmit={handleSubmit} />
@@ -75,9 +75,12 @@ function App() {
         <Route
           path="/protected/dashboard"
           element={
-            <AppLayout>
-              <Dashboard webtoken={token} />
-            </AppLayout>
+            <>
+              <Navigation isLoggedIn={isLoggedIn} />
+              <AppLayout>
+                <Dashboard webtoken={token} />
+              </AppLayout>
+            </>
           }
         />
       </Routes>
