@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 interface Props {
@@ -16,6 +17,7 @@ function Dashboard(props: Props) {
   const { webtoken } = props;
   const [token, setToken] = useState(webtoken);
   const [data, setData] = useState<Data[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (token) {
@@ -38,7 +40,18 @@ function Dashboard(props: Props) {
         console.log(response.data);
         setData(response.data);
       });
-  }, []);
+    axios.interceptors.response.use(
+      (response) => {
+        return response;
+      },
+      (error) => {
+        if (error.response.status === 401) {
+          navigate("/auth/login", { replace: true });
+        }
+        return error;
+      }
+    );
+  }, [navigate]);
   return (
     <>
       <h1>Dashboard</h1>
