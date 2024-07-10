@@ -15,8 +15,6 @@ function App() {
   const handleSubmit = (data: string, isLoggedIn: boolean) => {
     setToken(data);
     setIsLoggedIn(isLoggedIn);
-    console.log("Token: " + data);
-    console.log("Isloggedin?: " + isLoggedIn);
   };
 
   useEffect(() => {
@@ -29,8 +27,6 @@ function App() {
     const loggedIn = JSON.parse(localStorage.getItem("isLoggedIn")!);
     if (loggedIn) {
       setIsLoggedIn(loggedIn);
-      console.log(loggedIn);
-      console.log(isLoggedIn);
     }
   }, [isLoggedIn]);
 
@@ -44,16 +40,6 @@ function App() {
               <Navigation isLoggedIn={isLoggedIn} />
               <AppLayout>
                 <Home />
-              </AppLayout>
-            </>
-          }
-        />
-        <Route
-          path="/auth"
-          element={
-            <>
-              <Navigation isLoggedIn={isLoggedIn} />
-              <AppLayout>
                 <Authorize />
               </AppLayout>
             </>
